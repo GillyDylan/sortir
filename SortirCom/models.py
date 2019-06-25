@@ -5,30 +5,35 @@ from django.contrib.auth.models import User
 
 
 class Ville(models.Model):
-    nom = models.CharField(unique=True, blank=False, max_length=200)
+    nom = models.CharField(unique=True, blank=False, max_length=100)
     codePostal = models.CharField(blank=False, max_length=5, validators=[RegexValidator(r'^\d{5}$')])
 
 
 class Lieu(models.Model):
-    nom = models.CharField(unique=True, blank=False, max_length=200)
-    rue = models.CharField(unique=True, blank=False, max_length=200)
+    nom = models.CharField(unique=True, blank=False, max_length=100)
+    rue = models.CharField(unique=True, blank=False, max_length=100)
     latitude = models.FloatField(blank=False)
     longitude = models.FloatField(blank=False)
     ville = models.ForeignKey(Ville, on_delete=models.CASCADE)
 
 
 class Etat(models.Model):
-    libelle = models.CharField(blank=False, max_length=200)
+    libelle = models.CharField(blank=False, max_length=20)
 
 
 class Site(models.Model):
-    nom = models.CharField(unique=True, blank=False, max_length=200)
+    nom = models.CharField(unique=True, blank=False, max_length=50)
 
 
 class Participant(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    pseudo = models.CharField(unique=True, blank=False, max_length=50)
+    nom = models.CharField(blank=False, max_length=50)
+    prenom = models.CharField(blank=False, max_length=50)
+    email = models.EmailField(unique=True, blank=False, max_length=100)
+    password = models.CharField(blank=False, max_length=100)
     telephone = models.CharField(blank=False,  max_length=10, validators=[RegexValidator(r'^\d{10}$')])
     administrateur = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
     site = models.ForeignKey(Site, blank=False, on_delete=models.PROTECT)
 
 
