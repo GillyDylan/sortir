@@ -33,12 +33,12 @@ class Participant(models.Model):
     password = models.CharField(blank=False, max_length=100)
     telephone = models.CharField(blank=False,  max_length=10, validators=[RegexValidator(r'^\d{10}$')])
     administrateur = models.BooleanField(default=False)
-    active = models.BooleanField(default=True)
+    actif = models.BooleanField(default=True)
     site = models.ForeignKey(Site, blank=False, on_delete=models.PROTECT)
 
 
 class Sortie(models.Model):
-    nom = models.CharField(blank=False, max_length=200)
+    nom = models.CharField(blank=False, max_length=100)
     dateHeureDebut = models.DateTimeField(blank=False)
     dateHeureFin = models.DateTimeField(blank=False)
     dateLimiteInscription = models.DateField(blank=False)
